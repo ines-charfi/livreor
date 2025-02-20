@@ -78,5 +78,29 @@ class User {
         $stmt->bindParam(':id', $id);
         return $stmt->execute();
     }
+
+    public function updatePassword($user_id, $login, $old_password, $new_password) {
+        $conn = $this->db->connect();
+        
+        // Get user data
+        $user = $this->getUserById($user_id);
+        
+        // Verify login matches user_id
+        if ($user['login'] !== $login) {
+            return false;
+        }
+        
+        // Verify old password
+        if (!$this->verifyPassword($user, $old_password)) {
+            return false;
+        }
+        
+        // Update password
+        $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+        $stmt = $conn->prepare('UPDATE user SET password = :password WHERE id = :id');
+        $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':id', $user_id);
+        return $stmt->execute();
+    }
 }
 ?>
