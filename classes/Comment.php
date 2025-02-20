@@ -1,12 +1,15 @@
 <?php
-class Comment{
+class Comment
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database();
     }
 
-    public function addComment($id_user, $comment) {
+    public function addComment($id_user, $comment)
+    {
         $conn = $this->db->connect();
         $date = date('Y-m-d H:i:s');
         $stmt = $conn->prepare('INSERT INTO comment (id_user, comment, date) VALUES (:id_user, :comment, :date)');
@@ -16,23 +19,27 @@ class Comment{
         return $stmt->execute();
     }
 
-    public function getComments() {
+    public function getComments()
+    {
         $conn = $this->db->connect();
         $stmt = $conn->prepare('SELECT comment.*, user.login FROM comment JOIN user ON comment.id_user = user.id ORDER BY date DESC');
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-  
-    public function getCommentsWithLimit($limit, $offset) {
+
+    public function getCommentsWithLimit($limit, $offset)
+    {
         $conn = $this->db->connect();
-        $stmt = $conn->prepare("SELECT * FROM comment ORDER BY date DESC LIMIT :limit OFFSET :offset");
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt = $conn->prepare("SELECT comment.*, user.login FROM comment JOIN user ON comment.id_user = user.id ORDER BY date DESC LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', (int) $limit, PDO::PARAM_INT);  // Assurez-vous que $limit est un entier
+        $stmt->bindValue(':offset', (int) $offset, PDO::PARAM_INT); // Assurez-vous que $offset est un entier
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function countComments() {
-        // Assuming you have a database connection in $this->db
+
+    public function countComments()
+    {
+
         $conn = $this->db->connect();
         $stmt = $conn->prepare("SELECT COUNT(*) as total FROM comment");
         $stmt->execute();
@@ -40,32 +47,35 @@ class Comment{
         return $result['total'];
     }
 
-    public function searchComments($keyword) {
+    public function searchComments($keyword)
+    {
         $conn = $this->db->connect();
         $stmt = $conn->prepare('SELECT comment.*, user.login FROM comment JOIN user ON comment.id_user = user.id WHERE comment LIKE :keyword ORDER BY date DESC');
         $stmt->bindValue(':keyword', '%' . $keyword . '%');
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    // classes/Message.php
-// classes/Message.php
-public function getLatestComments($limit = 5) {
-    $conn = $this->db->connect();
-    // Utilisation de la variable $limit directement dans la requête SQL
-    $stmt = $conn->prepare("SELECT comment.*, user.login FROM comment JOIN user ON comment.id_user = user.id ORDER BY comment.date DESC LIMIT $limit");
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
 
-    // classes/Message.php
 
-    public function deleteMessage($message_id) {
+
+    public function getLatestComments($limit = 5)
+    {
+        $conn = $this->db->connect();
+        // Utilisation de la variable $limit directement dans la requête SQL
+        $stmt = $conn->prepare("SELECT comment.*, user.login FROM comment JOIN user ON comment.id_user = user.id ORDER BY comment.date DESC LIMIT $limit");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+    public function deleteMessage($message_id)
+    {
         $conn = $this->db->connect();
         $stmt = $conn->prepare("DELETE FROM comment WHERE id = ?");
         $stmt->execute([$message_id]);
     }
-    
+
 
 }
 ?>
