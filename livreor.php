@@ -36,8 +36,13 @@ if ($searchTerm) {
     // Si un mot-clé est recherché, utiliser la méthode de recherche paginée
     $messages = $messageObj->searchComments($searchTerm, $messagesPerPage, $offset);
 } else {
-    // Sinon, récupérer les messages de la page actuelle
-    $messages = $messageObj->getComments($messagesPerPage, $offset);
+ // Sinon, récupérer les messages de la page actuelle
+ $messages = $messageObj->getCommentsWithLimit($messagesPerPage ,   $offset, );
+ if (isset($_GET['page'])) {
+     $currentPage = $_GET['page'];
+ } else {
+     $currentPage = 1;
+ }
 }
 
 // Envoi d'un nouveau message
@@ -97,7 +102,7 @@ if (isset($_GET['delete_message_id'])) {
                     <p><strong><?php echo htmlspecialchars($message['login']); ?> :</strong></p>
                     <p><?php echo nl2br(htmlspecialchars($message['comment'])); ?></p>
                     <small><em>Posté le <?php echo $message['date']; ?></em></small>
-                    <a href="?delete_message_id=<?php echo $message['id']; ?>">Supprimer</a>
+                   
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

@@ -97,6 +97,7 @@ if (isset($_GET['delete_message_id'])) {
         <form method="POST" action="post_message">
             <textarea name="message" placeholder="Écrivez votre message ici..." required></textarea><br>
             <button type="submit">Envoyer</button>
+            
         </form>
     </section>
 
@@ -113,7 +114,7 @@ if (isset($_GET['delete_message_id'])) {
                 <p><strong><?php echo htmlspecialchars($message['login']); ?> :</strong></p>
                 <p><?php echo nl2br(htmlspecialchars($message['comment'])); ?></p>
                 <small><em>Posté le <?php echo $message['date']; ?></em></small>
-                <a href="?delete_message_id=<?php echo $message['id']; ?>">Supprimer</a>
+              
             </div>
         <?php endforeach; ?>
     </section>
