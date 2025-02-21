@@ -92,7 +92,7 @@ if (isset($_GET['delete_message_id'])) {
         <!-- Formulaire pour envoyer un message -->
         <section class="post-message">
             <h2>Envoyer un message</h2>
-            <form method="POST" action="post_message" class="form-container">
+            <form method="POST" action="post_message.php" class="form-container">
                 <textarea name="message" placeholder="Écrivez votre message ici..." required></textarea><br>
                 <button type="submit">Envoyer</button>
             </form>
