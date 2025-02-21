@@ -20,7 +20,7 @@ hr {
     height: 2px;
     width: 85%;
     background-color: white;
-    margin: 20px auto;
+    margin: 10px auto;
 }
 
 header {
@@ -34,11 +34,12 @@ header {
 
 header a {
     border-radius: 5px;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     padding: 7px 15px;
     text-decoration: none;
     color: white;
     margin: 5px;
+    cursor: pointer;
 }
 
 header .logo img {
@@ -50,15 +51,80 @@ header .header-content {
     align-items: center;
 }
 
-header nav a:hover {
-    text-decoration: underline;
-    color: chocolate;
+header .auth-buttons a:hover {
+    background-color: #a77c08;
 }
 
  h2, h3 {
     text-align: center;
-    margin-bottom: 2rem;
-    color: rgb(231, 180, 37);
+    margin-bottom: 10px;
+    color: rgb(255, 255, 255);
+}
+
+/* Partie LivreOr */
+header .search-form {
+    display: flex;
+    align-items: center;
+    /* margin-left: auto; */
+}
+
+header form .search-form {
+    background-color: none;
+    color: none;
+}
+
+header .search-form input[type="text"] {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+header .search-form button {
+    padding: 7px 5px;
+    background-color: #a77c08;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+header .search-form button:hover {
+    background-color: #8a6a0b;
+}
+
+.messages .message {
+    background-color: rgba(255, 255, 255, 0.575);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.messages .message p {
+    margin: 5px 0;
+}
+
+.post-message textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.post-message button {
+    padding: 10px 20px;
+    background-color: #a77c08;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.post-message button:hover {
+    background-color: #8a6a0b;
 }
 /* Animation du texte */
 @keyframes moveAndColorChange {
@@ -100,8 +166,14 @@ button {
     cursor: pointer;
 }
 
+main button {
+    padding-left: 70px;
+    padding-right: 70px;
+    border: 1.5px solid #a77c08;
+}
+
 main a button:hover {
-    background-color: chocolate;
+    background-color: #a77c08;
     color: white;
 }
 
@@ -115,6 +187,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.register-container a {
+    text-decoration: none;
+    color: white;
 }
 
 footer {
@@ -144,7 +220,7 @@ footer {
 }
 
 /* Formulaire */
-form {
+form .form-container {
     width: 50%;
     height: auto;
     background-color: rgba(255, 255, 255, 0.562);
@@ -210,7 +286,7 @@ form button {
 }
 
 form button:hover {
-    background-color: chocolate;
+    background-color: #a77c08;
 }
 /* Style des messages d'erreur ou de succès */
 .message {
@@ -379,6 +455,11 @@ form button:hover {
     .pagination ul li {
         margin: 5px 0;
     }
+}
+
+/* header et footer register et login */
+.regi-log {
+    background: linear-gradient(90deg, #000, #a77c08);
 }
 
 /* Footer */

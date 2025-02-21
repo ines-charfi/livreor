@@ -42,44 +42,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
    
 </head>
 <body>
-    <header>
+
+    <header class="regi-log">
         <div class="logo">
             <img src="images/logo.png" alt="Logo livreor">
         </div>
-        <div>
-            <h1>Bienvenue sur notre livre d'or</h1>
-        </div>
         <div class="header-content">
             <div class="auth-buttons">
-                <button onclick="window.location.href='index.php'">Home</button>
-                <button onclick="window.location.href='logout.php'">Déconnexion</button>
+                <a onclick="window.location.href='index.php'">Accueil</a>
+                <a onclick="window.location.href='livreor.php'">LivreOr</a>
             </div>
         </div>
     </header>
-    <main>
-        <section class="hero">
-            <h2>PAGE DE CONNEXION</h2>
-        </section>
 
+    <main>
         <!-- Affichage des messages d'erreur ou de succès -->
         <?php if ($message): ?>
             <div class="message <?php echo ($message === "Bienvenue, connexion réussie!") ? 'success' : 'error'; ?>">
                 <?php echo $message; ?>
             </div>
         <?php endif; ?>
-
+        
+        <div>
+            <h2>PAGE DE CONNEXION</h2>
+        </div>
         <div class="register-container">
-            <form method="post">
+            <form method="post" class="form-container">
                 <input type="email" name="login" placeholder="Login" required>
                 <input type="password" name="password" placeholder="Mot de passe" required>
                 <button type="submit">SE CONNECTER</button>
-                <a href="register.php">Pas encore inscrit?</a><br>
-                <a href="mofidication.php">Mot de passe oublié?</a>
+                <a href="register.php">Pas encore inscrit ?</a><br>
+                <a href="mofidication.php">Mot de passe oublié ?</a>
             </form>
         </div>
     </main>
-    <footer>
-        <p>&copy; livre d'or - La Plateforme | Tous droits réservés</p>
+    <footer class="regi-log">
+        <p>&copy; Livre d'Or - La Plateforme | Tous droits réservés</p>
     </footer>
 </body>
 </html>

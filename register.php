@@ -26,30 +26,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
+
+    <header class="regi-log">
         <div class="logo">
             <img src="../livreor/images/logo.png" alt="Logo livre d'or">
         </div>
-        <div>
-            <h1>Bienvenue sur notre livre d'or</h1>
-        </div>
         <div class="header-content">
             <div class="auth-buttons">
-                <button onclick="window.location.href='index.php'">Retour</button>
+                <a onclick="window.location.href='index.php'">Accueil</a>
+                <a onclick="window.location.href='livreor.php'">LivreOr</a>
             </div>
         </div>
     </header>
-    <main>
-        <section class="hero">
-            <h2>PAGE D'INSCRIPTION</h2>
-        </section>
 
+    <main>
+        <div><h2>PAGE D'INSCRIPTION</h2></div>
         <div class="register-container">
-            <form method="post">
+            <form method="post" class="form-container">
               
                 <input type="email" name="login" placeholder="Login" required>
                 <input type="password" name="password" placeholder="Mot de passe" required>
-                <div>
+            <div>
                 <label for="password_confirm">Confirmer le mot de passe</label>
                 <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirmer le mot de passe">
             </div>
@@ -57,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </form>
         </div>
     </main>
-    <footer>
+
+    <footer class="regi-log">
       
         <p>&copy; livre d'or - La Plateforme | Tous droits réservés</p>
       

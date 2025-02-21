@@ -37,7 +37,12 @@ if ($searchTerm) {
     $messages = $messageObj->searchComments($searchTerm, $messagesPerPage, $offset);
 } else {
     // Sinon, récupérer les messages de la page actuelle
-    $messages = $messageObj->getComments($messagesPerPage, $offset);
+    $messages = $messageObj->getCommentsWithLimit($messagesPerPage, $offset);
+    if (isset($_GET['page'])) {
+        $currentPage = $_GET['page'];
+    } else {
+        $currentPage = 1;
+    }
 }
 
 // Envoi d'un nouveau message
@@ -71,18 +76,22 @@ if (isset($_GET['delete_message_id'])) {
          <div class="logo">
             <img src="images/logo.png" alt="Logo livreor">
         </div>
-        <form method="GET" action="post_message.php">
-            <input type="text" name="search" placeholder="Rechercher un mot-clé..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>" onkeydown="if(event.key === 'Enter'){this.form.submit();}">
+        <div class="header-content">
+            <div class="auth-buttons">
+                <a href="index.php">Accueil</a> 
+                <a href="register.php">S'inscrire</a>
+                <a href="login.php">Se connecter</a>
+            </div>
+        </div>
+        <form method="GET" action="post_message.php" class="search-form">
+            <input type="text" name="search" placeholder="Rechercher un mot-clé..." value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
+            <button type="submit">Recherche</button>
         </form>
-        <a href="index.php">Acceuil</a> 
-        <a href="modification.php">Profile</a>
-        <a href="post_message.php">Get a touch</a>
-        <a href="logout.php">Déconnexion</a></p>
     </header>
 
-    <a href="post_message.php"><button type="submit">Ajouter un commentaire</button></a>
-
     <!-- Affichage des messages -->
+     <main>
+     <!-- Affichage des messages -->
     <section class="messages">
         <h2>Messages du Livre d'Or :</h2>
         <?php if ($searchTerm): ?>
@@ -94,38 +103,44 @@ if (isset($_GET['delete_message_id'])) {
         <?php else: ?>
             <?php foreach ($messages as $message): ?>
                 <div class="message">
-                    <p><strong><?php echo htmlspecialchars($message['login']); ?> :</strong></p>
+                    <p><strong><?php echo isset($message['login']) ? htmlspecialchars($message['login']) : 'Utilisateur inconnu'; ?> :</strong></p>
                     <p><?php echo nl2br(htmlspecialchars($message['comment'])); ?></p>
                     <small><em>Posté le <?php echo $message['date']; ?></em></small>
-                    <a href="?delete_message_id=<?php echo $message['id']; ?>">Supprimer</a>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
     </section>
 
-    <!-- Pagination -->
-    <section class="pagination">
+        <!-- Pagination -->
+        <section class="pagination">
         <ul>
             <?php if ($currentPage > 1): ?>
-                <li><a href="?page=<?php echo $currentPage - 1; ?>&search=<?php echo htmlspecialchars($searchTerm); ?>">Précédent</a></li>
+                <li><a
+                        href="?page=<?php echo $currentPage - 1; ?>&search=<?php echo urlencode(htmlspecialchars($searchTerm)); ?>">Précédent</a>
+                </li>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li>
-                    <a href="?page=<?php echo $i; ?>&search=<?php echo htmlspecialchars($searchTerm); ?>" class="<?php echo ($i == $currentPage) ? 'active' : ''; ?>">
+                    <a href="?page=<?php echo $i; ?>&search=<?php echo urlencode(htmlspecialchars($searchTerm)); ?>"
+                        class="<?php echo ($i == $currentPage) ? 'active' : ''; ?>">
                         <?php echo $i; ?>
                     </a>
                 </li>
             <?php endfor; ?>
 
             <?php if ($currentPage < $totalPages): ?>
-                <li><a href="?page=<?php echo $currentPage + 1; ?>&search=<?php echo htmlspecialchars($searchTerm); ?>">Suivant</a></li>
+                <li><a
+                        href="?page=<?php echo $currentPage + 1; ?>&search=<?php echo htmlspecialchars($searchTerm); ?>">Suivant</a>
+                </li>
             <?php endif; ?>
         </ul>
     </section>
+        <a href="post_message.php"><button type="submit">Ajouter un commentaire</button></a>
+    </main>
 
     <footer>
-        <p>&copy; livre d'or - La Plateforme | Tous droits réservés</p>
+        <p>&copy; Livre d'Or - La Plateforme 2025 | Tous droits réservés</p>
     </footer>
 </body>
 </html>
